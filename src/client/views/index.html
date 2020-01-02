@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <!-- <link rel="stylesheet" href="/styles/resets.css">
+        <link rel="stylesheet" href="/styles/base.css">
+        <link rel="stylesheet" href="/styles/header.css">
+        <link rel="stylesheet" href="/styles/form.css">
+        <link rel="stylesheet" href="/styles/footer.css"> -->
+</head>
+
+<body>
+
+    <header>
+        <div class="">
+            News sentiment checker
+        </div>
+        <!-- <div class="">
+                navigation
+            </div> -->
+    </header>
+
+    <main>
+        <section>
+            <form class="" onsubmit="return Client.handleSubmit(event)">
+                <input id="name" type="text" name="input" value="" placeholder="News URL to use for sentiment check">
+                <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)"
+                    onsubmit="return Client.handleSubmit(event)">
+            </form>
+            <section>
+
+                <section>
+                    <strong>Form Results:</strong>
+                    <div id="results">
+
+                        <div id="inputURL"></div>
+                        <div id="polarity"></div>
+                        <div id="polarity_conf"></div>
+                        <div id="subjectivity"></div>
+                        <div id="subjectivity_conf"></div>
+                    </div>
+                </section>
+    </main>
+
+    <footer>
+        <p>For more information about Natural Language processing and the sentiment analysis visit:<a
+                href="https://aylien.com/text-api" target="_blank"> Aylien</a></p>
+        <div id='aylienLink'></div>
+    </footer>
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
+</body>
+
+</html>
