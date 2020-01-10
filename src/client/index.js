@@ -1,6 +1,6 @@
 
-import { validateURL } from './js/validateURL'
-import { handleSubmit, getData } from './js/formHandler'
+import { getProjData,postData,callPixbay} from './js/tripApp'
+//import { handleSubmit, getData } from './js/formHandler'
 import './styles/resets.scss'
 import './styles/base.scss'
 import './styles/form.scss'
@@ -8,18 +8,15 @@ import './styles/footer.scss'
 import './styles/header.scss'
 import './styles/results.scss'
 
-
-console.log(validateURL);
+//console.log(validateURL);
 //alert("I EXIST")
-//console.log("CHANGE!!");
-
-
-
+console.log("load!!");
 
 export {
-
-    validateURL,
-    handleSubmit,
-    getData
-
+    //handleSubmit,
+    //getData,
+    //getTrips,
+    getProjData,
+    postData,
+    callPixbay 
 }

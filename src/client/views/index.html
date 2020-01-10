@@ -1,63 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <title>Test</title>
-    <!-- <link rel="stylesheet" href="/styles/resets.css">
-        <link rel="stylesheet" href="/styles/base.css">
-        <link rel="stylesheet" href="/styles/header.css">
-        <link rel="stylesheet" href="/styles/form.css">
-        <link rel="stylesheet" href="/styles/footer.css"> -->
+  <meta charset="UTF-8">
+  <title>Trip planner</title>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+  
 </head>
 
 <body>
 
-    <header>
-        <div class="">
-            News sentiment checker
-        </div>
-        <!-- <div class="">
-                navigation
-            </div> -->
-    </header>
+  <div class="header">
+    Trip planner App
+  </div>
 
-    <main>
-        <section>
-            <form class="" onsubmit="return Client.handleSubmit(event)">
-                <input id="name" type="text" name="input" value="" placeholder="News URL to use for sentiment check">
-                <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)"
-                    onsubmit="return Client.handleSubmit(event)">
-            </form>
-            <section>
+  <div id="app">
 
-                <section>
-                    <strong>Form Results:</strong>
-                    <div id="results">
 
-                        <div id="inputURL"></div>
-                        <div id="polarity"></div>
-                        <div id="polarity_conf"></div>
-                        <div id="subjectivity"></div>
-                        <div id="subjectivity_conf"></div>
-                    </div>
-                </section>
-    </main>
 
-    <footer>
-        <p>For more information about Natural Language processing and the sentiment analysis visit:<a
-                href="https://aylien.com/text-api" target="_blank"> Aylien</a></p>
-        <div id='aylienLink'></div>
-    </footer>
-    <script>
-        // Check that service workers are supported
-        if ('serviceWorker' in navigator) {
-            // Use the window load event to keep the page load performant
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js');
-            });
-        }
-    </script>
+    <!-- <div class="holderZip">
+      <label for="zip">Enter Zipcode here</label>
+      <input type="text" id="zip" placeholder="enter zip code here">
+    </div>
+    <div class="holderFeel" id="feel">
+      <label for="feelings">How are you feeling today?</label>
+      <textarea class="myInput" id="feelings" placeholder="Enter your thoughts here" rows="9" cols="50"></textarea>
+      <button id="generate" type="submit"> Generate </button>
+    </div> -->
+
+
+    <div id="inputForm">
+        <form>
+            Destination:<br>
+            <input type="text" id="destinationName" name="destination"><br>
+            Date for trip:<br>
+            <input type="date" id="tripStartDate" name="startDate">
+            How many nights will the trip be?<br>
+            <input type="text" id="tripNights" name="tripDuration">
+            <button id="submitTrip" type="submit"> submit </button>
+            <button id="submitDarkSky" type="submit"> submit DS </button>
+          </form>
+    </div>
+
+    <div class="destinationImage" id="destinationBackgroundImage">
+
+    </div>
+  </div>
+  <div class="holder entry" id="mostRecent">
+    <div class="title">Most Recent Entry</div>
+    <div id="entryHolder">
+      <div id="date"></div>
+      <div id="temp"></div>
+      <div id="content"></div>
+    </div>
+  </div>
+ 
+
 </body>
 
 </html>
