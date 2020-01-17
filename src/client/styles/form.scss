@@ -1,13 +1,44 @@
 form {
+    //display: grid;
     border: 1px solid #545454;
-    background-color: blue;
+    background-color: rgba(203, 211, 216, 0.658);
+    color: black;
     border-radius: 3px;
     padding: 40px;
+    width: 40vw;
+    max-width:70vw ;
+    min-width:30vw;
+    opacity: 1;
 }
 
 input {
     padding: 5px 20px;
-    width: 100%;
+    width: 30vw;
     line-height: 16px;
     margin: 10px 0;
+}
+
+
+.ui-autocomplete { position: absolute; cursor: default; background-color:white } 
+
+
+//This is intentional. By hidding the object it is accessible for those that need it(ie screen readers that produce audio for accessability). 
+.ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+
+.weatherInfo{
+    opacity: 1;
+    color: black;
+    font-size: 20px;
+    font: bold;
+    background-color: rgb(203, 211, 216);
 }

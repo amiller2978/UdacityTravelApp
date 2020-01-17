@@ -5,57 +5,41 @@
   <meta charset="UTF-8">
   <title>Trip planner</title>
   <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="  crossorigin="anonymous"></script>
   
 </head>
-
 <body>
+    
+    
+<div class="destinationImage" id="destinationBackgroundImage"> 
+<header>Plan your Trip!</header>
 
-  <div class="header">
-    Trip planner App
+<div id="main">
+    <form>
+        Destination:<br>
+        <input class="autocomplete" type="text" id="destinationName" name="destination">
+        <br>Date for trip:<br>
+        <input type="date" id="tripStartDate" name="startDate">
+        <br>How many nights will the trip be?</br>
+        <input type="text" id="tripNights" name="tripDuration">
+        <button id="submitTrip" type="submit"> submit </button>
+        
+      </form>
+
+  <nav></nav>
+  
+    <div id="weather"></div>
   </div>
-
-  <div id="app">
-
-
-
-    <!-- <div class="holderZip">
-      <label for="zip">Enter Zipcode here</label>
-      <input type="text" id="zip" placeholder="enter zip code here">
-    </div>
-    <div class="holderFeel" id="feel">
-      <label for="feelings">How are you feeling today?</label>
-      <textarea class="myInput" id="feelings" placeholder="Enter your thoughts here" rows="9" cols="50"></textarea>
-      <button id="generate" type="submit"> Generate </button>
-    </div> -->
+<footer> <p>For more information about the APIs used in the application please visit:
+  <a href="https://geonames.org/" target="_blank"> GeoNames</a>
+  <a href= "https://pixabay.com/" target="_blank"> Pixabay</a>
+  <a href="https:/darksky.com/" target="_blank"> DarkSky</a></p>
+</footer>
 
 
-    <div id="inputForm">
-        <form>
-            Destination:<br>
-            <input type="text" id="destinationName" name="destination"><br>
-            Date for trip:<br>
-            <input type="date" id="tripStartDate" name="startDate">
-            How many nights will the trip be?<br>
-            <input type="text" id="tripNights" name="tripDuration">
-            <button id="submitTrip" type="submit"> submit </button>
-            <button id="submitDarkSky" type="submit"> submit DS </button>
-          </form>
-    </div>
 
-    <div class="destinationImage" id="destinationBackgroundImage">
-
-    </div>
-  </div>
-  <div class="holder entry" id="mostRecent">
-    <div class="title">Most Recent Entry</div>
-    <div id="entryHolder">
-      <div id="date"></div>
-      <div id="temp"></div>
-      <div id="content"></div>
-    </div>
-  </div>
- 
-
+</div>
 </body>
 
 </html>
