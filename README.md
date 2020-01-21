@@ -9,7 +9,7 @@ this is an example travel application and makes API calls to the following servi
 
 To use this application clone or download the repo, then run npm -i
 
-Then create a .nev file with the following information:
+Then create a .ENV file with the following information:
 
 PORT=3000
 GEONAMES_API_ID=your username
