@@ -3,10 +3,10 @@ const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
 const fetch = require('node-fetch')
-const PixabayApi = require('node-pixabayclient');
+//const PixabayApi = require('node-pixabayclient');
 //pixabay node package
 //https://www.npmjs.com/package/node-pixabayclient
-const PixabayPhotos = new PixabayApi({ apiUrl: "https://pixabay.com/api/" });
+//const PixabayPhotos = new PixabayApi({ apiUrl: "https://pixabay.com/api/" });
 const pixabayKey = process.env.PIXABAY_API_KEY;
 const pixabayURL = "https://pixabay.com/api/";
 
@@ -35,11 +35,6 @@ app.use(bodyParser.json());
 app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
-
-
-///from excercise
-/* Empty JS object to act as endpoint for all routes */
-//projectData = {};
 let data = [];
 
 /* Initialize the main project folder*/
@@ -92,15 +87,9 @@ app.use('/darkSkyForecast', async (req, res, next) => {
   }
 })
 
-// //get pixabay image json
-// var params = {
-//   key: pixabayKey,
-//   q: "", // automatically URL-encoded
-//   image_type: "photo",
-// };
 
-//const url = "https://jsonplaceholder.typicode.com/posts/1";
-const getData = async url => {
+
+const getPixbayData = async url => {
   try {
     const response = await fetch(url);
     const json = await response.json();
@@ -110,20 +99,20 @@ const getData = async url => {
     console.log(error);
   }
 };
-//getData('https://pixabay.com/api/?key=14801087-988d62851309b90cbc9d95787&q=london');
+
 
 app.use('/pixabay', async (req, res) => {
   let pixabaySearch = req.body.input.search;
   //console.log(pixabaySearch);
   //params.q = pixabaySearch;
   pixaBayData = {};
-  let pixabaySearchURL = pixabayURL + `?key=` + pixabayKey + `&q=` + pixabaySearch
+  let pixabaySearchURL = pixabayURL + `?key=` + pixabayKey + `&category=travel&safesearch=true&image_type=photo&q=` + pixabaySearch
   //res.status(200).json(pixaBayData)
   //console.log('post')
   try {
     
     //console.log(pixabaySearchURL)
-    pixaBayData = getData(pixabaySearchURL)
+    pixaBayData = getPixbayData(pixabaySearchURL)
     pixaBayData.then(function(result){
       //console.log(result)
       res.status(200).json(result)

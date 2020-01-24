@@ -22,6 +22,8 @@ var imageURL = ``;
 document.getElementById('submitTrip').addEventListener('click', submitTrip);
 document.getElementById('tripStartDate').addEventListener('input', callDarkSky);
 
+
+
 //jquery function to handle auto complete for location input
 $(document).ready(function() {
 	$( "#destinationName" ).autocomplete({
@@ -182,7 +184,7 @@ function callPixbay(destinationName) {
             return imageURL;
         } else {
             console.log('no data back from pixabay query')
-            document.getElementById('destinationBackgroundImage').style.backgroundImage=url("./img/compass-3408928_1920.jpg");
+            document.getElementById('destinationBackgroundImage').style.backgroundImage=url("../img/compass-3408928_1920.jpg");
         }
     })
     
