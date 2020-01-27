@@ -21,8 +21,12 @@ module.exports = {
                 loader: "babel-loader"
             },
             {
+                test: /\.(ttf|eot|svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'file-loader'
+              },
+            {
                 test: /\.scss$/,
-                use: [MiniCSSExtractPlugin.loader ,"css-loader" , "sass-loader" ]
+                use: [ MiniCSSExtractPlugin.loader ,"css-loader" , "sass-loader" ]
         }
         ]
     },

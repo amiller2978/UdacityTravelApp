@@ -1,12 +1,7 @@
 const express = require('express')
-//const {json, urlencoded} = require('body-parser')
 const cors = require('cors')
 require('dotenv').config()
 const fetch = require('node-fetch')
-//const PixabayApi = require('node-pixabayclient');
-//pixabay node package
-//https://www.npmjs.com/package/node-pixabayclient
-//const PixabayPhotos = new PixabayApi({ apiUrl: "https://pixabay.com/api/" });
 const pixabayKey = process.env.PIXABAY_API_KEY;
 const pixabayURL = "https://pixabay.com/api/";
 
@@ -43,7 +38,7 @@ app.use(express.static('website'));
 /* Spin up the server*/
 const server = app.listen(port, listening);
 function listening() {
-  // console.log(server);
+
   console.log(`running on localhost: ${port}`);
 };
 
@@ -103,27 +98,22 @@ const getPixbayData = async url => {
 
 app.use('/pixabay', async (req, res) => {
   let pixabaySearch = req.body.input.search;
-  //console.log(pixabaySearch);
-  //params.q = pixabaySearch;
+
   pixaBayData = {};
   let pixabaySearchURL = pixabayURL + `?key=` + pixabayKey + `&category=travel&safesearch=true&image_type=photo&q=` + pixabaySearch
-  //res.status(200).json(pixaBayData)
-  //console.log('post')
+
   try {
-    
-    //console.log(pixabaySearchURL)
     pixaBayData = getPixbayData(pixabaySearchURL)
-    pixaBayData.then(function(result){
-      //console.log(result)
+    pixaBayData.then(function (result) {
+
       res.status(200).json(result)
       return result;
     })
-    
-    //res.status(200).json(pixaBayData)
+
   } catch (err) {
     next(err)
   }
-  
- }
+
+}
 )
 
