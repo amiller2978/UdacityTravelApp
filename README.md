@@ -6,6 +6,8 @@ this is an example travel application and makes API calls to the following servi
 <https://darksky.net/>
 <https://www.geonames.org/>
 
+It has been extended to include forecast icons using <https://github.com/darkskyapp/skycons>
+
 
 To use this application clone or download the repo, then run npm -i
 

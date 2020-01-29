@@ -18,6 +18,10 @@ input {
     margin: 10px 0;
 }
 
+#submitTrip:hover {
+    background-color: rgba(255, 255, 0, 0.842);
+
+}
 
 .ui-autocomplete { position: absolute; cursor: default; background-color:white } 
 
@@ -42,3 +46,21 @@ input {
     font: bold;
     background-color: rgb(203, 211, 216);
 }
+//for forecast icons
+figure {
+    margin: 3em auto;
+    width: 368px;
+    height: 152px;
+  }
+
+  canvas {
+    display: block;
+    margin-left: 8px;
+    margin-top: 8px;
+    background-color: rgb(203, 211, 216);
+  }
+
+  pre {
+    font: 77.8%/1.5em "Lucida Sans Typewriter", "Lucida Console", "Monaco", "Bitstream Vera Sans Mono", monospace;
+    margin: 3.375em 1.6875em;
+  }

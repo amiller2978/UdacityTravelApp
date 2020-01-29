@@ -7,6 +7,18 @@ const projDataURL = '/all'
 const darkSkyForcastURL = 'http://localhost:3000/darkSkyForecast'
 
 
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+  }).catch(function(err) {
+    //registration failed :(
+    console.log('ServiceWorker registration failed: ', err);
+  });
+}else {
+  console.log('No service-worker on this browser');
+}
+
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
 //temp values for latest reading
@@ -16,6 +28,8 @@ let destinationLatLong = {};
 let tripLatLongDate = {};
 var destinationInputName = {};
 var imageURL = ``;
+
+
 
 /* Function called by event listener */
 //needed to call window onload to make sure resourcew load for testing
@@ -94,8 +108,6 @@ function submitTrip(e) {
             if (data.length > 0) {
                 recID = (data.length);
                 postGetTrip(addTripDataURL);
-                alert('Trip submitted!')
-                clearForm();
                 return;
 
             } else {
@@ -112,24 +124,24 @@ function submitTrip(e) {
 
 function postGetTrip(addTripDataURL) {
     let tripDest = document.getElementById('destinationName').value;
+    let tripStartDate = document.getElementById('tripStartDate').value;
+    let tripNights = document.getElementById('tripNights').value;
     if (tripDest == "") {
         alert("Please enter a destination for your trip")
         return;
-    }
-    let tripStartDate = document.getElementById('tripStartDate').value;
-    if (tripStartDate == "") {
+    } else if (tripStartDate == "") {
         alert("Please enter a start date for your trip")
         return;
-    }
-    let tripNights = document.getElementById('tripNights').value;
-    if (tripNights == "") {
+    } else if (tripNights == "") {
         alert("Please enter the number of nights for your trip")
         return;
-    }
+    } else {
+
+
 
     postData(addTripDataURL, { id: recID, location: tripDest, date: tripStartDate, nights: tripNights });
-
-
+    alert('Trip submitted!')
+    clearForm();
     getProjData('http://localhost:3000/all')
         .then(function (data) {
             if (data.length > 0) {
@@ -140,6 +152,7 @@ function postGetTrip(addTripDataURL) {
             }
 
         })
+    }
 
 }
 
@@ -218,14 +231,29 @@ function callDarkSky(e) {
                     document.getElementById('WeatherInfoDiv').remove();
                 }
                 let darkSkyWeatherIcon = darkSkyData.daily.data[0].icon;
+                console.log(darkSkyWeatherIcon);
                 let darSkyHiTemp = darkSkyData.daily.data[0].temperatureHigh;
                 let darkSkyLowTemp = darkSkyData.daily.data[0].temperatureLow;
                 let darkSkyWeatherText = darkSkyData.daily.data[0].summary;
                 let travelDate = document.getElementById('tripStartDate').value;
-                var weatherInfoDivHelper = `<div class="weatherInfo">The forecast for ${destinationName.value} on ${travelDate} is ${darkSkyWeatherText} with a high temperature of ${darSkyHiTemp} and a low temperature of ${darkSkyLowTemp} </div>`;
+                var weatherInfoDivHelper = `<div class="weatherInfo">The forecast for ${destinationName.value} on ${travelDate} is ${darkSkyWeatherText} with a high temperature of ${darSkyHiTemp} and a low temperature of ${darkSkyLowTemp}  <canvas id=${darkSkyWeatherIcon} width="64" height="64"></canvas></div>  `;
 
                 weatherInfoDiv.innerHTML = weatherInfoDivHelper;
                 document.getElementById('weather').appendChild(weatherInfoDiv);
+                //darksky icon support
+                var icons = new Skycons(),
+                    list  = [
+                    "clear-day", "clear-night", "partly-cloudy-day",
+                    "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                    "fog"
+                    ],
+                    i;
+
+                    for(i = list.length; i--; )
+                    icons.set(list[i], list[i]);
+
+                    icons.play();
+                
             } else {
                 let darkSkyWeatherElement = document.createElement('P');
                 let darkSkyWeatherText = document.createTextNode('No weather data available');

@@ -1,4 +1,4 @@
-import { getProjData,postData,callPixbay,getcurrentData,getPixabayData,submitTrip,callDarkSky} from './js/tripApp'
+import { getProjData,postData,callPixbay,getcurrentData,getPixabayData,submitTrip,callDarkSky} from './js/tripApp.js'
 import './styles/resets.scss'
 import './styles/base.scss'
 import './styles/form.scss'
