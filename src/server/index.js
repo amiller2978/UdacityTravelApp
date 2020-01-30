@@ -28,12 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cors());
-// Initialize the main project folder
-app.use(express.static('website'));
 let data = [];
 
-/* Initialize the main project folder*/
-app.use(express.static('website'));
+
 
 /* Spin up the server*/
 const server = app.listen(port, listening);

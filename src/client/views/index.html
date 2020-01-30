@@ -64,7 +64,7 @@
   <script>
     if ('serviceWorker' in navigator) { 
       console.log("Registering service worker"); 
-      window.addEventListener('load', () => { navigator.serviceWorker.register('./dist/service-worker.js'); console.log("Registered service worker"); 
+      window.addEventListener('load', () => { navigator.serviceWorker.register('service-worker.js'); console.log("Registered service worker"); 
       }); 
     } else { console.log('No service-worker on this browser'); }
   </script>
