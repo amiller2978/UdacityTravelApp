@@ -29,16 +29,7 @@ let geoSearchPlaceNameValue = '';
 let geoSearchRegionValue = ''; 
 
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
-    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-  }).catch(function(err) {
-    //registration failed :(
-    console.log('ServiceWorker registration failed: ', err);
-  });
-}else {
-  console.log('No service-worker on this browser');
-}
+
 
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
@@ -184,7 +175,7 @@ function callPixbay(destinationName) {
                 return imageURL;
             } else {
                 console.log('no data back from pixabay query')
-                document.getElementById('destinationBackgroundImage').style.backgroundImage = url("compass-3408928_1920.jpg");
+                document.getElementById('destinationBackgroundImage').style.backgroundImage = "url('compass-3408928_1920.jpg')";
             }
         })
 
