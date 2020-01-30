@@ -7,27 +7,32 @@
   <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="http://darkskyapp.github.io/skycons/skycons.js"></script>
-  <script  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+    integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
 
 
 </head>
+
 <body>
-  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
-  <linkrel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"type="text/css"/>
+  <script
+    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+  <linkrel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
+    type="text/css" />
   <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-    
-<div class="destinationImage" id="destinationBackgroundImage"> 
-<header>Plan your Trip!</header>
 
-<div id="main">
-  <div id="map">
+  <div class="destinationImage" id="destinationBackgroundImage">
+    <header>Plan your Trip!</header>
 
-  </div>
-    <form>
+    <div id="main">
+      <div id="map">
+
+      </div>
+      <form>
         <!-- Destination:<br>
         <input class="autocomplete" type="text" id="destinationName" name="destination"> -->
         <br>Date for trip:<br>
@@ -35,38 +40,34 @@
         <br>How many nights will the trip be?</br>
         <input type="text" id="tripNights" name="tripDuration">
         <button id="submitTrip" type="submit"> submit </button>
-        
+
       </form>
 
-  <nav></nav>
-  
-    <div id="weather">
-    
+      <nav></nav>
+
+      <div id="weather">
+
+      </div>
     </div>
+
+    <footer>
+      <p>For more information about the APIs used in the application please visit:
+        <a href="https://geonames.org/" target="_blank"> GeoNames</a>
+        <a href="https://pixabay.com/" target="_blank"> Pixabay</a>
+        <a href="https:/darksky.com/" target="_blank"> DarkSky</a></p>
+      <a href="https:/mapbox.com/" target="_blank"> Mapbox</a></p>
+    </footer>
+
+
+
   </div>
-
-<footer> <p>For more information about the APIs used in the application please visit:
-  <a href="https://geonames.org/" target="_blank"> GeoNames</a>
-  <a href= "https://pixabay.com/" target="_blank"> Pixabay</a>
-  <a href="https:/darksky.com/" target="_blank"> DarkSky</a></p>
-  <a href="https:/mapbox.com/" target="_blank"> Mapbox</a></p>
-</footer>
-
-
-
-</div>
-<script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-    console.log('ServiceWorker registration successful with scope: ', registration.scope);
-  }).catch(function(err) {
-    //registration failed :(
-    console.log('ServiceWorker registration failed: ', err);
-  });
-}else {
-  console.log('No service-worker on this browser');
-}
-</script>
+  <script>
+    if ('serviceWorker' in navigator) { 
+      console.log("Registering service worker"); 
+      window.addEventListener('load', () => { navigator.serviceWorker.register('./dist/service-worker.js'); console.log("Registered service worker"); 
+      }); 
+    } else { console.log('No service-worker on this browser'); }
+  </script>
 </body>
 
 </html>
