@@ -10,23 +10,23 @@ const darkSkyForcastURL = 'http://localhost:3000/darkSkyForecast'
 var map = {
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-38.557892,32.600626],
+    center: [-38.557892, 32.600626],
     zoom: 1,
     interactive: false
-    };
+};
 let thismap = new mapboxgl.Map(map);
 
 var geocoder = new MapboxGeocoder({ // Initialize the geocoder
     accessToken: mapboxgl.accessToken, // Set the access token
     mapboxgl: mapboxgl, // Set the mapbox-gl instance
-    types: 'place',
+    types: 'place', //limit search to places
     placeholder: 'enter a location for your trip'
-    });
-thismap.addControl(geocoder,'top-left');
+});
+thismap.addControl(geocoder, 'top-left');
 
 let geoSearchValue = '';
 let geoSearchPlaceNameValue = '';
-let geoSearchRegionValue = ''; 
+let geoSearchRegionValue = '';
 
 
 
@@ -45,17 +45,17 @@ var imageURL = ``;
 
 /* Function called by event listener */
 //needed to call window onload to make sure resourcew load for testing
-function addListeners(){
+function addListeners() {
     document.getElementById('submitTrip').addEventListener('click', submitTrip);
     document.getElementById('tripStartDate').addEventListener('input', callDarkSky);
     //document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].addEventListener('input', doSearch);
     buildMap();
 };
-    
+
 window.onload = addListeners;
 
 
-function clearForm(){
+function clearForm() {
     //document.getElementById('destinationName').value = ``;
     //need to clear the search window
     document.getElementById('tripStartDate').value = ``;
@@ -64,7 +64,7 @@ function clearForm(){
     var element = document.getElementById('forecast');
     element.parentNode.removeChild(element);
     geocoder.clear();
-    thismap.flyTo({ center: [-38.557892,32.600626],zoom:1 });
+    thismap.flyTo({ center: [-38.557892, 32.600626], zoom: 1 });
     document.getElementById('destinationBackgroundImage').style.backgroundImage = "url('compass-3408928_1920.jpg')";
 
 };
@@ -109,26 +109,26 @@ function postGetTrip(addTripDataURL) {
 
 
 
-    postData(addTripDataURL, { id: recID, location: tripDest, date: tripStartDate, nights: tripNights });
-    alert('Trip submitted!')
-    clearForm();
-    getProjData('http://localhost:3000/all')
-        .then(function (data) {
-            if (data.length > 0) {
-                recID = (data.length - 1);
+        postData(addTripDataURL, { id: recID, location: tripDest, date: tripStartDate, nights: tripNights });
+        alert('Trip submitted!')
+        clearForm();
+        getProjData('http://localhost:3000/all')
+            .then(function (data) {
+                if (data.length > 0) {
+                    recID = (data.length - 1);
 
-            } else {
-                console.log('no records found');
-            }
+                } else {
+                    console.log('no records found');
+                }
 
-        })
+            })
     }
 
 }
 
 
 async function getPixabayData(imageSearch) {
-    console.log(`image search input:`+ imageSearch);
+
     let response = await fetch(getPixabayURL, {
         method: 'POST',
         credentials: 'same-origin',
@@ -159,7 +159,7 @@ async function getPixabayData(imageSearch) {
 
 //function to make API call for pixabay data
 function callPixbay(destinationName) {
-    console.log(destinationName);
+
     let pixabayDatas = {};
     imageURL = ``;
     getPixabayData(destinationName)
@@ -205,7 +205,6 @@ function callDarkSky(e) {
                     document.getElementById('WeatherInfoDiv').remove();
                 }
                 let darkSkyWeatherIcon = darkSkyData.daily.data[0].icon;
-                console.log(darkSkyWeatherIcon);
                 let darSkyHiTemp = darkSkyData.daily.data[0].temperatureHigh;
                 let darkSkyLowTemp = darkSkyData.daily.data[0].temperatureLow;
                 let darkSkyWeatherText = darkSkyData.daily.data[0].summary;
@@ -216,18 +215,18 @@ function callDarkSky(e) {
                 document.getElementById('weather').appendChild(weatherInfoDiv);
                 //darksky icon support
                 var icons = new Skycons(),
-                    list  = [
-                    "clear-day", "clear-night", "partly-cloudy-day",
-                    "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-                    "fog"
+                    list = [
+                        "clear-day", "clear-night", "partly-cloudy-day",
+                        "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+                        "fog"
                     ],
                     i;
 
-                    for(i = list.length; i--; )
+                for (i = list.length; i--;)
                     icons.set(list[i], list[i]);
 
-                    icons.play();
-                
+                icons.play();
+
             } else {
                 let darkSkyWeatherElement = document.createElement('P');
                 let darkSkyWeatherText = document.createTextNode('No weather data available');
@@ -246,7 +245,7 @@ const getProjData = async (url = '') => {
 
         const allData = await request.json()
         return allData;
-        
+
     }
     catch (error) {
         console.log("error", error);
@@ -295,37 +294,21 @@ const postData = async (url = '', data = {}) => {
 }
 
 
-function buildMap(){
-    
-    
-    
-
- 
-
-     
-
-    //   thismap.on('moveend', function(e){
-    //     console.log('moveend done'); 
-    //     console.log(thismap.getCenter());
-    //     console.log(e);
-        
-        
-    //  });
-
-    geocoder.on('result', function(ev) {
+function buildMap() {
+    geocoder.on('result', function (ev) {
 
         geoSearchValue = ev.result.place_name;
         geoSearchPlaceNameValue = ev.result.text;
         geoSearchRegionValue = ev.result.context[0].text;
- 
+
         destinationLatLong = { latitude: thismap.getCenter().lat, longitude: thismap.getCenter().lng };
 
         callPixbay(geoSearchPlaceNameValue);
-      });
+    });
 }
 
 
-export { getProjData, postData, callPixbay,getPixabayData ,getcurrentData,submitTrip,callDarkSky,buildMap}
+export { getProjData, postData, callPixbay, getPixabayData, getcurrentData, submitTrip, callDarkSky, buildMap }
 
 
 
