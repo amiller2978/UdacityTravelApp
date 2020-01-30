@@ -5,10 +5,11 @@ form {
     color: black;
     border-radius: 3px;
     padding: 40px;
-    width: 40vw;
+    width: 50vw;
     max-width:70vw ;
     min-width:30vw;
     opacity: 1;
+    margin: auto; 
 }
 
 input {
@@ -55,9 +56,14 @@ figure {
 
   canvas {
     display: block;
-    margin-left: 8px;
-    margin-top: 8px;
+    margin-left: 0px;
+    margin-top: 0px;
     background-color: rgb(203, 211, 216);
+  }
+
+  .mapboxgl-map{
+ padding: 0;
+ 
   }
 
   pre {

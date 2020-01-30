@@ -8,19 +8,28 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="http://darkskyapp.github.io/skycons/skycons.js"></script>
   <script  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="  crossorigin="anonymous"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css" rel="stylesheet" />
 
 
 </head>
 <body>
-    
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+  <linkrel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"type="text/css"/>
+  <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
     
 <div class="destinationImage" id="destinationBackgroundImage"> 
 <header>Plan your Trip!</header>
 
 <div id="main">
+  <div id="map">
+
+  </div>
     <form>
-        Destination:<br>
-        <input class="autocomplete" type="text" id="destinationName" name="destination">
+        <!-- Destination:<br>
+        <input class="autocomplete" type="text" id="destinationName" name="destination"> -->
         <br>Date for trip:<br>
         <input type="date" id="tripStartDate" name="startDate">
         <br>How many nights will the trip be?</br>
@@ -35,6 +44,7 @@
     
     </div>
   </div>
+
 <footer> <p>For more information about the APIs used in the application please visit:
   <a href="https://geonames.org/" target="_blank"> GeoNames</a>
   <a href= "https://pixabay.com/" target="_blank"> Pixabay</a>
@@ -45,17 +55,6 @@
 
 </div>
 
-<script>
-  // // // Check that service workers are supported
-  //  if ('serviceWorker' in navigator) {
-  //      // Use the window load event to keep the page load performant
-  //      window.addEventListener('load', () => {
-  //         navigator.serviceWorker.register('/service-worker.js');
-  //      });
-  //  }
-
-
-</script>
 </body>
 
 </html>

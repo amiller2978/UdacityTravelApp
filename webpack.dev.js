@@ -2,19 +2,21 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const Geonames = require('geonames.js')
 
+
+// app.use(express.static(dir));
 
 module.exports = {
     entry: './src/client/index.js',
     mode: 'development',
     devtool: 'source-map',
     stats: 'verbose',
-    output: {
+     output: {
         libraryTarget: 'var',
         library: 'Client',
-        path: path.resolve(__dirname, 'dist')
-    },
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: path.build
+     },
     module: {
         rules: [
             {
@@ -26,11 +28,11 @@ module.exports = {
                 test: /\.scss$/,
                 use: [ "style-loader" ,"css-loader" , "sass-loader" ]
         },
-        {
-            test: /\.(jpe?g|png|gif|svg)$/i, 
-            loader: "file-loader?name=./client/img/[name].[ext]",
-        }
-        ]
+         {
+             test: /\.(jpe?g|png|gif|svg)$/i, 
+             loader: "file-loader?name=[name].[ext]",
+         }
+         ]
     },
     plugins: [
         new HtmlWebPackPlugin({

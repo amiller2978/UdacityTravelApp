@@ -1,10 +1,10 @@
-import { getProjData,postData,callPixbay,getcurrentData,getPixabayData,submitTrip,callDarkSky} from './js/tripApp.js'
+import { getProjData,postData,callPixbay,getcurrentData,getPixabayData,submitTrip,callDarkSky,buildMap} from './js/tripApp.js'
 import './styles/resets.scss'
 import './styles/base.scss'
 import './styles/form.scss'
 import './styles/footer.scss'
 import './styles/header.scss'
-
+buildMap();
 export {
  
     getProjData,
@@ -13,5 +13,6 @@ export {
     getPixabayData,
     getcurrentData,
     submitTrip,
-    callDarkSky 
+    callDarkSky,
+    buildMap
 }

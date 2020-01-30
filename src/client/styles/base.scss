@@ -14,16 +14,32 @@
   
 #main {
     display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     min-height: calc(100vh - 40vh);
     flex-grow: 1;    
+    
+}
+#map { 
+  width: 50vw;
+  height: 40vh;
+  margin: auto;
+  padding: 0em;
+
+  
+  
 }
 
 #weather {
     flex: 1;
     flex: 0 0 30vw;
-    opacity: .5;
+    opacity: .75;
+    margin: auto; 
+    width: 50vw;
     
   }
+ 
+
   #main > nav {
     flex: 5vw;
     order: -1;

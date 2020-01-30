@@ -2,10 +2,31 @@
 const addTripDataURL = 'http://localhost:3000/addTripData'
 const getPixabayURL = 'http://localhost:3000/pixabay'
 const projDataURL = '/all'
-
+mapboxgl.accessToken = `pk.eyJ1IjoiYW1pbGxlcm1hcGJveCIsImEiOiJjazV5bGVka2owMm5zM2dvNGUzM3Z4eGU3In0.fTOD3XRE5dAnUz5Uqx4npQ`
 
 const darkSkyForcastURL = 'http://localhost:3000/darkSkyForecast'
 
+//Mapbox info
+var map = {
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-38.557892,32.600626],
+    zoom: 1,
+    interactive: false
+    };
+let thismap = new mapboxgl.Map(map);
+
+var geocoder = new MapboxGeocoder({ // Initialize the geocoder
+    accessToken: mapboxgl.accessToken, // Set the access token
+    mapboxgl: mapboxgl, // Set the mapbox-gl instance
+    types: 'place',
+    placeholder: 'enter a location for your trip'
+    });
+thismap.addControl(geocoder,'top-left');
+
+let geoSearchValue = '';
+let geoSearchPlaceNameValue = '';
+let geoSearchRegionValue = ''; 
 
 
 if ('serviceWorker' in navigator) {
@@ -36,68 +57,25 @@ var imageURL = ``;
 function addListeners(){
     document.getElementById('submitTrip').addEventListener('click', submitTrip);
     document.getElementById('tripStartDate').addEventListener('input', callDarkSky);
-
-
-
-//jquery function to handle auto complete for location input
-$(document).ready(function () {
-    $("#destinationName").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: "http://api.geonames.org/searchJSON",
-                dataType: "jsonp",
-                data: {
-                    style: "medium",
-                    maxRows: 5,
-                    username: "amiller2978",
-                    featureClass: "P",
-                    name_startsWith: request.term
-                },
-                success: function (data) {
-                    response($.map(data.geonames, function (item) {
-
-                        return {
-                            label: item.name + "," + item.adminName1 + "," + item.countryCode,
-                            value: item.name + "," + item.adminName1 + "," + item.countryCode,
-                            lat: item.lat,
-                            lng: item.lng,
-                            name: item.name
-
-                        }
-
-                    }));
-
-                }
-
-
-            });
-        },
-        //Start Search after user types...
-        minLength: 3,
-        close: function () {
-        },
-        change: function () {
-        },
-        select: function (event, ui) {
-            destinationLatLong = { latitude: ui.item.lat, longitude: ui.item.lng };
-            destinationInputName = ui.item.name;
-            callPixbay(destinationInputName);
-
-
-        }
-    });
-});
-
-
-
+    //document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].addEventListener('input', doSearch);
+    buildMap();
 };
     
 window.onload = addListeners;
 
+
 function clearForm(){
-    document.getElementById('destinationName').value = ``;
+    //document.getElementById('destinationName').value = ``;
+    //need to clear the search window
     document.getElementById('tripStartDate').value = ``;
     document.getElementById('tripNights').value = ``;
+    // Removes the forecast element from the document
+    var element = document.getElementById('forecast');
+    element.parentNode.removeChild(element);
+    geocoder.clear();
+    thismap.flyTo({ center: [-38.557892,32.600626],zoom:1 });
+    document.getElementById('destinationBackgroundImage').style.backgroundImage = "url('compass-3408928_1920.jpg')";
+
 };
 
 function submitTrip(e) {
@@ -123,7 +101,8 @@ function submitTrip(e) {
 
 
 function postGetTrip(addTripDataURL) {
-    let tripDest = document.getElementById('destinationName').value;
+    //let tripDest = document.getElementById('destinationName').value;
+    let tripDest = geoSearchValue;
     let tripStartDate = document.getElementById('tripStartDate').value;
     let tripNights = document.getElementById('tripNights').value;
     if (tripDest == "") {
@@ -158,6 +137,7 @@ function postGetTrip(addTripDataURL) {
 
 
 async function getPixabayData(imageSearch) {
+    console.log(`image search input:`+ imageSearch);
     let response = await fetch(getPixabayURL, {
         method: 'POST',
         credentials: 'same-origin',
@@ -188,7 +168,7 @@ async function getPixabayData(imageSearch) {
 
 //function to make API call for pixabay data
 function callPixbay(destinationName) {
-
+    console.log(destinationName);
     let pixabayDatas = {};
     imageURL = ``;
     getPixabayData(destinationName)
@@ -204,7 +184,7 @@ function callPixbay(destinationName) {
                 return imageURL;
             } else {
                 console.log('no data back from pixabay query')
-                document.getElementById('destinationBackgroundImage').style.backgroundImage = url("../img/compass-3408928_1920.jpg");
+                document.getElementById('destinationBackgroundImage').style.backgroundImage = url("compass-3408928_1920.jpg");
             }
         })
 
@@ -215,7 +195,10 @@ function callPixbay(destinationName) {
 //darksky call for forecast
 function callDarkSky(e) {
     e.preventDefault();
-
+    if (geoSearchValue == "") {
+        alert("please use the map above to find a location")
+        return;
+    }
     let weatherInfoDiv = document.createElement('DIV');
     weatherInfoDiv.id = 'WeatherInfoDiv';
 
@@ -236,7 +219,7 @@ function callDarkSky(e) {
                 let darkSkyLowTemp = darkSkyData.daily.data[0].temperatureLow;
                 let darkSkyWeatherText = darkSkyData.daily.data[0].summary;
                 let travelDate = document.getElementById('tripStartDate').value;
-                var weatherInfoDivHelper = `<div class="weatherInfo">The forecast for ${destinationName.value} on ${travelDate} is ${darkSkyWeatherText} with a high temperature of ${darSkyHiTemp} and a low temperature of ${darkSkyLowTemp}  <canvas id=${darkSkyWeatherIcon} width="64" height="64"></canvas></div>  `;
+                var weatherInfoDivHelper = `<div class="weatherInfo" id="forecast">The forecast for ${geoSearchValue} on ${travelDate} is ${darkSkyWeatherText} with a high temperature of ${darSkyHiTemp} and a low temperature of ${darkSkyLowTemp}  <canvas id=${darkSkyWeatherIcon} width="64" height="64"></canvas></div>  `;
 
                 weatherInfoDiv.innerHTML = weatherInfoDivHelper;
                 document.getElementById('weather').appendChild(weatherInfoDiv);
@@ -320,7 +303,38 @@ const postData = async (url = '', data = {}) => {
     }
 }
 
-export { getProjData, postData, callPixbay,getPixabayData ,getcurrentData,submitTrip,callDarkSky}
-//export {getcurrentData}
+
+function buildMap(){
+    
+    
+    
+
+ 
+
+     
+
+    //   thismap.on('moveend', function(e){
+    //     console.log('moveend done'); 
+    //     console.log(thismap.getCenter());
+    //     console.log(e);
+        
+        
+    //  });
+
+    geocoder.on('result', function(ev) {
+
+        geoSearchValue = ev.result.place_name;
+        geoSearchPlaceNameValue = ev.result.text;
+        geoSearchRegionValue = ev.result.context[0].text;
+ 
+        destinationLatLong = { latitude: thismap.getCenter().lat, longitude: thismap.getCenter().lng };
+
+        callPixbay(geoSearchPlaceNameValue);
+      });
+}
+
+
+export { getProjData, postData, callPixbay,getPixabayData ,getcurrentData,submitTrip,callDarkSky,buildMap}
+
 
 
